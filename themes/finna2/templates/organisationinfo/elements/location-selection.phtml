@@ -63,6 +63,42 @@
     </div>
     <div class="js-location-quick-information info-element hidden"></div>
 
+
+<?php 
+  $nowOpen = $this->transEsc('organisation_info_is_open_now'); 
+  $nowClosed = $this->transEsc('organisation_info_is_closed_now');
+  $noInfo = $this->transEsc('organisation_info_no_schedule');
+?>  
+<div>
+<div id="location_select_screendeader" ><?= $this->transEsc('organisation_info_navi_service') . ' ' . $this->transEsc('Total') . ' ' . $locationCount ?></div> 
+
+<?php if ($locationCount > 1): ?>
+          <div style="line-height:1.5em; width:50em;">
+            <?php foreach ($orgInfo['list'] as $item): ?>
+              <?php
+                $name = $item['name'];
+                $area = $item['address']['area'];
+                $city = $item['address']['city'];
+                $isOpen = $item['openNow'];
+                
+                if ($area === $city) {
+                  $area = '';
+                }
+                if ('' !== $area && '' !== $city) {
+                  $name .= ", $area ($city)";
+                } elseif ('' !== $area || '' !== $city) {
+                  $name .= ", $area$city";
+                }
+                if ($isOpen) 
+                $name = "$nowOpen, $name"; 
+                else $name = "$nowClosed, $name"; 
+              ?>
+              <div><?=$this->escapeHtml($name)?></div>
+            <?php endforeach; ?>
+            </div>
+ <?php endif; ?>
+</div>
+
     <div class="js-location-info-map hidden">
       <template class="js-map-attribution">
         <span class="map-marker-text">
