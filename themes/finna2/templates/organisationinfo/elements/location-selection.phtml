@@ -72,7 +72,12 @@
 <div>
 <div id="location_select_screendeader" ><?= $this->transEsc('organisation_info_navi_service') . ' ' . $this->transEsc('Total') . ' ' . $locationCount ?></div> 
 
-<?php if ($locationCount > 1): ?>
+<?php for ($i = 1; $i <= 3; $i++) if ($locationCount > 1): ?>
+          <div>
+          <div style="text-decoration: underline; font-weight: bold;"><?php if ($i === 1)  echo $this->escapeHtml($nowOpen); 
+              elseif ($i === 2) echo $this->escapeHtml($nowClosed);
+              elseif ($i === 3) echo $this->escapeHtml($noInfo); ?>
+          </div>
           <div style="line-height:1.5em; width:50em;">
             <?php foreach ($orgInfo['list'] as $item): ?>
               <?php
@@ -80,6 +85,7 @@
                 $area = $item['address']['area'];
                 $city = $item['address']['city'];
                 $isOpen = $item['openNow'];
+                $isUnknown = $item['isAlwaysClosed'];
                 
                 if ($area === $city) {
                   $area = '';
@@ -89,15 +95,21 @@
                 } elseif ('' !== $area || '' !== $city) {
                   $name .= ", $area$city";
                 }
-                if ($isOpen) 
-                $name = "$nowOpen, $name"; 
-                else $name = "$nowClosed, $name"; 
+                if ($i === 1) {
+                if (!$isOpen && $isUnknown) $name = '';
+                } elseif ($i === 2) {
+                  if ($isOpen && !$isUnknown) $name = '';
+                } elseif ($i === 3) {
+                  if (!$isUnknown) $name = '';
+                } 
+                
               ?>
               <div><?=$this->escapeHtml($name)?></div>
             <?php endforeach; ?>
             </div>
  <?php endif; ?>
 </div>
+
 
     <div class="js-location-info-map hidden">
       <template class="js-map-attribution">
