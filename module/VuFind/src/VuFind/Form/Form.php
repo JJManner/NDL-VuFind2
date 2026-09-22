@@ -969,7 +969,7 @@ class Form extends \Laminas\Form\Form implements
             !empty($el['label']) && 'hidden' !== $type
             && !isset($attributes['aria-label'])
         ) {
-            $attributes['aria-label'] = $this->translate($el['label']);
+            $attributes['aria-labelledby'] = $this->translate($el['label']);
         }
 
         switch ($type) {
