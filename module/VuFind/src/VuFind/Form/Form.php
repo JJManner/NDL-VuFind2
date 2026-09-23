@@ -1015,6 +1015,7 @@ class Form extends \Laminas\Form\Form implements
                         'attributes' => [
                             'id' => $elemId,
                             'class' => 'form-check-input',
+                            'aria-label' => $this->translate($option['label']),
                         ],
                         'selected' => $first,
                     ];
