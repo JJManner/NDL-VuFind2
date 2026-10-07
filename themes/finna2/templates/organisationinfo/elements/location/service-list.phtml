@@ -25,7 +25,6 @@
     'data-toggletip-content' => $tooltipEsc ?? '',
     'aria-expanded' => 'false',
   ]);
-  $tooltipEsc ='nakki';
   if (empty($labelHtml) && !empty($ariaLabel)) {
     $__attributes['aria-label'] = $tooltipEsc;
   }
@@ -38,7 +37,7 @@
   }
 ?>
 
-          <span class="finna-toggletip">
+<span class="finna-toggletip">
   <button<?=$__attributes?>>
     <?php if (!empty($labelHtml)): ?><span class="finna-toggletip__label"><?=$labelHtml ?></span><?php endif; ?>
   </button>
